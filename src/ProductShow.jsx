@@ -9,21 +9,25 @@ export function ProductShow({ product, onUpdate, onDestroy }) {
       <h1>Product information</h1>
       <h2>{product.name}</h2>
       <img src={product.image_url} />
-      <p>Price: {product.price}</p>
+      <p>Price: ${product.price}</p>
       <p>Description: {product.description}</p>
 
       <form onSubmit={handleSubmit}>
         <div>
-          Name: <input defaultValue={product.name} name="name" type="text" />
+          <label htmlFor="name">Name:</label>
+          <input id="name" defaultValue={product.name} name="name" type="text" />
         </div>
         <div>
-          Image Url: <input defaultValue={product.image_urlurl} name="image_url" type="text" />
+          <label htmlFor="image_url">Image URL:</label>
+          <input id="image_url" defaultValue={product.image_url} name="image_url" type="text" />
         </div>
         <div>
-          Price: <input defaultValue={product.price} name="price" type="text" />
+          <label htmlFor="price">Price:</label>
+          <input id="price" defaultValue={product.price} name="price" type="text" />
         </div>
         <div>
-          Description: <input defaultValue={product.description} name="description" type="text" />
+          <label htmlFor="description">Description:</label>
+          <input id="description" defaultValue={product.description} name="description" type="text" />
         </div>
         <button type="submit">Update</button>
       </form>

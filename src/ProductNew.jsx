@@ -6,20 +6,24 @@ export function ProductNew({ onCreate }) {
   };
 
   return (
-    <div>
+    <div className="new-product">
       <h1>New Product</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          Name: <input name="name" type="text" />
+          <label htmlFor="name">Name:</label>
+          <input id="name" name="name" type="text" />
         </div>
         <div>
-          Price: <input name="price" type="text" />
+          <label htmlFor="price">Price:</label>
+          <input id="price" name="price" type="text" />
         </div>
         <div>
-          Image URL: <input name="image_url" type="text" />
+          <label htmlFor="image_url">Image URL:</label>
+          <input id="image_url" name="image_url" type="text" />
         </div>
         <div>
-          Description: <input name="description" type="text" />
+          <label htmlFor="description">Description:</label>
+          <input id="description" name="description" type="text" />
         </div>
         <button type="submit">Create</button>
       </form>

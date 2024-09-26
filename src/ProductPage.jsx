@@ -4,6 +4,7 @@ import { ProductIndex } from "./ProductIndex";
 import { ProductShow } from "./ProductShow";
 import { ProductNew } from "./ProductNew";
 import { Modal } from "./Modal";
+import "./Index.css";
 
 export function ProductPage() {
   const [products, setProduct] = useState([]);
