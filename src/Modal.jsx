@@ -1,4 +1,4 @@
-import "./Modal.css";
+import "./App.css";
 
 export function Modal({ children, show, onClose }) {
   if (show) {
@@ -7,7 +7,7 @@ export function Modal({ children, show, onClose }) {
         <section className="modal-main">
           {children}
           <button className="close" type="button" onClick={onClose}>
-            &#x2715;
+            &times;
           </button>
         </section>
       </div>

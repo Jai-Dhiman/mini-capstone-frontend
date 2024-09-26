@@ -13,12 +13,16 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  flex: 1;
 }
 
 .product-grid {
@@ -88,7 +92,7 @@ main {
 }
 
 .new-product button {
-  background-color: #28a745;
+  background-color: #007bff;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -98,7 +102,7 @@ main {
 }
 
 .new-product button:hover {
-  background-color: #218838;
+  background-color: #007bff;
 }
 
 .modal-background {
@@ -144,7 +148,14 @@ main {
   border-radius: 4px;
 }
 
-.modal-main button {
+.modal-main .button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.modal-main .button-group button {
+  flex: 1;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -154,8 +165,16 @@ main {
   transition: background-color 0.3s;
 }
 
-.modal-main button:hover {
+.modal-main .button-group button:hover {
   background-color: #0056b3;
+}
+
+.modal-main .button-group button:last-child {
+  background-color: #dc3545;
+}
+
+.modal-main .button-group button:last-child:hover {
+  background-color: #c82333;
 }
 
 .modal-main .close {
@@ -164,8 +183,15 @@ main {
   right: 10px;
   background-color: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
+  color: #000;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
 }
 
 @media (max-width: 768px) {
