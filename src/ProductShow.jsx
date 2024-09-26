@@ -11,6 +11,7 @@ export function ProductShow({ product, onUpdate, onDestroy }) {
       <h2>{product.name}</h2>
       <img src={product.image_url} alt={product.name} />
       <p>Price: ${product.price}</p>
+      <p>Supplier: {product.supplier.name}</p>
       <p>Description: {product.description}</p>
       <form onSubmit={handleSubmit}>
         <div>
@@ -22,8 +23,12 @@ export function ProductShow({ product, onUpdate, onDestroy }) {
           <input id="image_url" defaultValue={product.image_url} name="image_url" type="text" />
         </div>
         <div>
-          <label htmlFor="price">Price:</label>
+          <label htmlFor="psupplier">Price:</label>
           <input id="price" defaultValue={product.price} name="price" type="text" />
+        </div>
+        <div>
+          <label htmlFor="supplier_id">Supplier ID:</label>
+          <input id="supplier_id" defaultValue={product.supplier?.id || ""} name="supplier_id" type="text" />
         </div>
         <div>
           <label htmlFor="description">Description:</label>

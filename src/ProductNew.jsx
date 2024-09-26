@@ -18,6 +18,10 @@ export function ProductNew({ onCreate }) {
           <input id="price" name="price" type="text" />
         </div>
         <div>
+          <label htmlFor="supplier_id">Supplier ID:</label>
+          <input id="supplier_id" name="supplier_id" type="text" />
+        </div>
+        <div>
           <label htmlFor="image_url">Image URL:</label>
           <input id="image_url" name="image_url" type="text" />
         </div>
