@@ -35,19 +35,26 @@ export function ProductPage() {
 
   const handleUpdate = (id, params, successCallback) => {
     console.log("handleUpdate", params);
-    axios.patch(`http://localhost:3000/products/${id}.json`, params).then((response) => {
-      setProduct(
-        products.map((product) => {
-          if (product.id === response.data.id) {
-            return response.data;
-          } else {
-            return product;
-          }
-        })
-      );
-      successCallback();
-      handleClose();
-    });
+    axios
+      .patch(`http://localhost:3000/products/${id}.json`, params)
+      .then((response) => {
+        setProduct(
+          products.map((product) => {
+            if (product.id === response.data.id) {
+              return response.data;
+            } else {
+              return product;
+            }
+          })
+        );
+        successCallback();
+        handleClose();
+        console.log("Product updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+        console.log("Failed to update product");
+      });
   };
 
   const handleDestroy = (id) => {

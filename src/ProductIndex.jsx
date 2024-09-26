@@ -7,9 +7,7 @@ export function ProductIndex({ products, onShow }) {
           <div key={product.id} className="product-card">
             <h2>{product.name}</h2>
             <img src={product.image_url} />
-            <p>Price: ${product.price}</p>
-            <p>Supplier: {product.supplier.name}</p>
-            <p>Description: {product.description}</p>
+            <p>${product.price}</p>
             <button onClick={() => onShow(product)}>More info</button>
           </div>
         ))}

@@ -1,15 +1,22 @@
 export function ProductShow({ product, onUpdate, onDestroy }) {
   const handleSubmit = (event) => {
     event.preventDefault();
-    const params = new FormData(event.target);
-    onUpdate(product.id, params, () => event.target.reset());
+    const form = event.target;
+    const params = {
+      name: form.name.value,
+      image_url: form.image_url.value,
+      price: form.price.value,
+      supplier_id: form.supplier_id.value,
+      description: form.description.value,
+    };
+    onUpdate(product.id, params, () => form.reset());
   };
 
   return (
     <div>
       <h1>Product information</h1>
       <h2>{product.name}</h2>
-      <img src={product.image_url} alt={product.name} />
+      <img src={product.image_url} />
       <p>Price: ${product.price}</p>
       <p>Supplier: {product.supplier.name}</p>
       <p>Description: {product.description}</p>
