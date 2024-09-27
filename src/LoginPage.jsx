@@ -17,6 +17,7 @@ export function LoginPage() {
       .post("http://localhost:3000/sessions.json", params)
       .then((response) => {
         console.log(response.data);
+        console.log("Logged IN");
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
         event.target.reset();
