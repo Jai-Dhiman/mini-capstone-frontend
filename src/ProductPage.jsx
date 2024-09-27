@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import { ProductIndex } from "./ProductIndex";
 import { ProductShow } from "./ProductShow";
 import { ProductNew } from "./ProductNew";
+import { SignupPage } from "./SignupPage";
+import { LoginPage } from "./LoginPage";
+import { LogoutLink } from "./LogoutLink";
 import { Modal } from "./Modal";
 import "./Index.css";
 
@@ -76,6 +79,9 @@ export function ProductPage() {
     <main>
       <ProductNew onCreate={handleCreate} />
       <ProductIndex products={products} onShow={handleShow} />
+      <SignupPage />
+      <LoginPage />
+      <LogoutLink />
       <Modal show={isProductsShowVisible} onClose={handleClose}>
         <ProductShow product={currentProduct} onUpdate={handleUpdate} onDestroy={handleDestroy} />
       </Modal>
