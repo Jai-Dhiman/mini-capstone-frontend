@@ -5,6 +5,7 @@ import { SignupPage } from "./SignupPage";
 import { LoginPage } from "./LoginPage";
 import { Footer } from "./Footer";
 import { UserProvider } from "./UserContext";
+import { ProductNew } from "./ProductNew";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/newproduct",
+        element: <ProductNew />,
       },
     ],
   },
