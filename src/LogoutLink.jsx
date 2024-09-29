@@ -1,17 +1,27 @@
-import axios from "axios";
+import { useUser } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 export function LogoutLink() {
+  const { user, logout } = useUser();
+  const navigate = useNavigate();
+
   const handleClick = (event) => {
     event.preventDefault();
-    delete axios.defaults.headers.common["Authorization"];
-    localStorage.removeItem("jwt");
-    window.location.href = "/";
+    logout();
+    navigate("/");
     console.log("Logged Out");
   };
 
+  if (!user) {
+    return null;
+  }
+
   return (
-    <a href="#" onClick={handleClick}>
-      Logout
-    </a>
+    <div>
+      <p>{user.name} is logged in</p>
+      <a href="#" onClick={handleClick}>
+        Logout
+      </a>
+    </div>
   );
 }

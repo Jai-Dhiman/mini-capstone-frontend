@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
-
-const jwt = localStorage.getItem("jwt");
-if (jwt) {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
-}
+import { useUser } from "./UserContext";
+import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
   const [errors, setErrors] = useState([]);
+  const { login } = useUser();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -20,8 +19,9 @@ export function LoginPage() {
         console.log("Logged IN");
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
+        login(response.data.user);
         event.target.reset();
-        window.location.href = "/"; // Change this to hide a modal, redirect to a specific page, etc.
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.response);

@@ -3,16 +3,16 @@ import { useState, useEffect } from "react";
 import { ProductIndex } from "./ProductIndex";
 import { ProductShow } from "./ProductShow";
 import { ProductNew } from "./ProductNew";
-import { SignupPage } from "./SignupPage";
-import { LoginPage } from "./LoginPage";
 import { LogoutLink } from "./LogoutLink";
 import { Modal } from "./Modal";
+import { useUser } from "./UserContext";
 import "./Index.css";
 
 export function ProductPage() {
   const [products, setProduct] = useState([]);
   const [isProductsShowVisible, setIsProductsShowVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState({});
+  const { user } = useUser();
 
   const handleIndex = () => {
     console.log("handleIndex");
@@ -77,11 +77,10 @@ export function ProductPage() {
 
   return (
     <main>
+      {user && <p>{user.name} is logged in</p>}
+      <LogoutLink />
       <ProductNew onCreate={handleCreate} />
       <ProductIndex products={products} onShow={handleShow} />
-      <SignupPage />
-      <LoginPage />
-      <LogoutLink />
       <Modal show={isProductsShowVisible} onClose={handleClose}>
         <ProductShow product={currentProduct} onUpdate={handleUpdate} onDestroy={handleDestroy} />
       </Modal>
