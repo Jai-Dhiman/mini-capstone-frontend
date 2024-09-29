@@ -44,7 +44,7 @@ export function ProductShow({ product, onUpdate, onDestroy }) {
         <div className="button-group">
           <button type="submit">Update</button>
           <button type="button" onClick={() => onDestroy(product.id)}>
-            Destroy
+            Delete
           </button>
         </div>
       </form>
