@@ -77,8 +77,10 @@ export function ProductPage() {
 
   return (
     <main>
-      {user && <p>{user.name} is logged in</p>}
-      <LogoutLink />
+      <div className="user-info">
+        {user && <p>{user.name} is logged in</p>}
+        <LogoutLink />
+      </div>
       <ProductNew onCreate={handleCreate} />
       <ProductIndex products={products} onShow={handleShow} />
       <Modal show={isProductsShowVisible} onClose={handleClose}>

@@ -10,7 +10,6 @@ export function UserProvider({ children }) {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
-      // You'll need to implement an endpoint to fetch the user's info
       axios
         .get("http://localhost:3000/user_info.json")
         .then((response) => {

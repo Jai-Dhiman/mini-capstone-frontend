@@ -199,3 +199,33 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+.user-info {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info p {
+  margin: 0;
+  font-weight: bold;
+  color: #000000;
+}
+
+.user-info a {
+  background-color: #007bff;
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.user-info a:hover {
+  background-color: #0056b3;
+}

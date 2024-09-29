@@ -21,6 +21,7 @@ export function ProductShow({ product, onUpdate, onDestroy }) {
       <p>Supplier: {product.supplier.name}</p>
       <p>Description: {product.description}</p>
       <form onSubmit={handleSubmit}>
+        <h3>Update Product:</h3>
         <div>
           <label htmlFor="name">Name:</label>
           <input id="name" defaultValue={product.name} name="name" type="text" />

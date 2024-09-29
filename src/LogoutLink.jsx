@@ -18,7 +18,6 @@ export function LogoutLink() {
 
   return (
     <div>
-      <p>{user.name} is logged in</p>
       <a href="#" onClick={handleClick}>
         Logout
       </a>
