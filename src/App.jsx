@@ -6,6 +6,8 @@ import { LoginPage } from "./LoginPage";
 import { Footer } from "./Footer";
 import { UserProvider } from "./UserContext";
 import { ProductNew } from "./ProductNew";
+import { ProductsIndexPage } from "./ProductsIndexPage";
+import axios from "axios";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,11 @@ const router = createBrowserRouter([
       {
         path: "/newproduct",
         element: <ProductNew />,
+      },
+      {
+        path: "/products",
+        element: <ProductsIndexPage />,
+        loader: () => axios.get("http://localhost:3000/products.json").then((response) => response.data),
       },
     ],
   },

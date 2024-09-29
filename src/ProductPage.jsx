@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { ProductIndex } from "./ProductIndex";
+// import { ProductIndex } from "./ProductIndex";
 import { ProductShow } from "./ProductShow";
 import { LogoutLink } from "./LogoutLink";
 import { Modal } from "./Modal";
@@ -74,7 +74,7 @@ export function ProductPage() {
           <LogoutLink />
         </div>
       )}
-      <ProductIndex products={products} onShow={handleShow} />
+      {/* <ProductIndex products={products} onShow={handleShow} /> */}
       <Modal show={isProductsShowVisible} onClose={handleClose}>
         <ProductShow product={currentProduct} onUpdate={handleUpdate} onDestroy={handleDestroy} />
       </Modal>
