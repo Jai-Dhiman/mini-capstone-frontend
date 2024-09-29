@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useUser } from "./UserContext";
+import { useUser } from "./useUser";
 import { useNavigate } from "react-router-dom";
 
 export function LoginPage() {
@@ -12,6 +12,7 @@ export function LoginPage() {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
+
     axios
       .post("http://localhost:3000/sessions.json", params)
       .then((response) => {
@@ -21,13 +22,18 @@ export function LoginPage() {
         localStorage.setItem("jwt", response.data.jwt);
         login(response.data.user);
         event.target.reset();
-        navigate("/");
+        // Use setTimeout to ensure state is updated before navigation
+        setTimeout(() => {
+          navigate("/", { replace: true });
+        }, 0);
       })
       .catch((error) => {
         console.log(error.response);
         setErrors(["Invalid email or password"]);
       });
   };
+
+  // ... rest of the component remains the same
 
   return (
     <div id="login">

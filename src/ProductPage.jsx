@@ -4,7 +4,7 @@ import { ProductIndex } from "./ProductIndex";
 import { ProductShow } from "./ProductShow";
 import { LogoutLink } from "./LogoutLink";
 import { Modal } from "./Modal";
-import { useUser } from "./UserContext";
+import { useUser } from "./useUser";
 import "./Index.css";
 
 export function ProductPage() {
@@ -68,10 +68,12 @@ export function ProductPage() {
 
   return (
     <main>
-      <div className="user-info">
-        {user && <p>{user.name} is logged in</p>}
-        <LogoutLink />
-      </div>
+      {user && (
+        <div className="user-info">
+          <p>{user.name} is logged in</p>
+          <LogoutLink />
+        </div>
+      )}
       <ProductIndex products={products} onShow={handleShow} />
       <Modal show={isProductsShowVisible} onClose={handleClose}>
         <ProductShow product={currentProduct} onUpdate={handleUpdate} onDestroy={handleDestroy} />
