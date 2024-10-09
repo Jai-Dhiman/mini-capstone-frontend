@@ -25,6 +25,8 @@ export function UserProvider({ children }) {
 
   const login = (userData) => {
     setUser(userData);
+    localStorage.setItem("jwt", userData.jwt);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${userData.jwt}`;
   };
 
   const logout = () => {

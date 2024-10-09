@@ -31,10 +31,11 @@ export function ProductsIndexPage() {
         </div>
       )}
       <h1>All Products</h1>
-      <div className="products-container">
+      <div className="product-grid">
         {products.map((product) => (
-          <div key={product.id} className="product-item">
+          <div key={product.id} className="product-card">
             <h2>{product.name}</h2>
+            <img src={product.image_url} />
             <p>{product.description}</p>
             <button onClick={() => handleShow(product)}>More info</button>
           </div>

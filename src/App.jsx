@@ -1,12 +1,11 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { Header } from "./Header";
-import { ProductPage } from "./ProductPage";
+import { ProductsIndexPage } from "./ProductsIndexPage";
 import { SignupPage } from "./SignupPage";
 import { LoginPage } from "./LoginPage";
 import { Footer } from "./Footer";
 import { UserProvider } from "./UserContext";
 import { ProductNew } from "./ProductNew";
-import { ProductsIndexPage } from "./ProductsIndexPage";
 import axios from "axios";
 
 const router = createBrowserRouter([
@@ -18,10 +17,31 @@ const router = createBrowserRouter([
         <Footer />
       </div>
     ),
+    loader: async () => {
+      const jwt = localStorage.getItem("jwt");
+      if (jwt) {
+        try {
+          const response = await axios.get("http://localhost:3000/user_info.json", {
+            headers: { Authorization: `Bearer ${jwt}` },
+          });
+          return response.data;
+        } catch (error) {
+          console.error("Error fetching user info:", error);
+          localStorage.removeItem("jwt");
+          delete axios.defaults.headers.common["Authorization"];
+          return null;
+        }
+      }
+      return null;
+    },
     children: [
       {
         path: "/",
-        element: <ProductPage />,
+        element: <ProductsIndexPage />,
+        loader: async () => {
+          const response = await axios.get("http://localhost:3000/products.json");
+          return response.data;
+        },
       },
       {
         path: "/signup",
@@ -34,11 +54,6 @@ const router = createBrowserRouter([
       {
         path: "/newproduct",
         element: <ProductNew />,
-      },
-      {
-        path: "/products",
-        element: <ProductsIndexPage />,
-        loader: () => axios.get("http://localhost:3000/products.json").then((response) => response.data),
       },
     ],
   },

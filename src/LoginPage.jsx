@@ -22,10 +22,8 @@ export function LoginPage() {
         localStorage.setItem("jwt", response.data.jwt);
         login(response.data.user);
         event.target.reset();
-        // Use setTimeout to ensure state is updated before navigation
-        setTimeout(() => {
-          navigate("/", { replace: true });
-        }, 0);
+
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.response);
