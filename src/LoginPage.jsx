@@ -20,7 +20,7 @@ export function LoginPage() {
         console.log("Logged IN");
         axios.defaults.headers.common["Authorization"] = "Bearer " + response.data.jwt;
         localStorage.setItem("jwt", response.data.jwt);
-        login(response.data.user);
+        login(response.data);
         event.target.reset();
 
         navigate("/");
@@ -30,8 +30,6 @@ export function LoginPage() {
         setErrors(["Invalid email or password"]);
       });
   };
-
-  // ... rest of the component remains the same
 
   return (
     <div id="login">

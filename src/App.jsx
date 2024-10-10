@@ -6,6 +6,7 @@ import { LoginPage } from "./LoginPage";
 import { Footer } from "./Footer";
 import { UserProvider } from "./UserContext";
 import { ProductNew } from "./ProductNew";
+import { ShoppingCart } from "./ShoppingCart";
 import axios from "axios";
 
 const router = createBrowserRouter([
@@ -17,23 +18,6 @@ const router = createBrowserRouter([
         <Footer />
       </div>
     ),
-    loader: async () => {
-      const jwt = localStorage.getItem("jwt");
-      if (jwt) {
-        try {
-          const response = await axios.get("http://localhost:3000/user_info.json", {
-            headers: { Authorization: `Bearer ${jwt}` },
-          });
-          return response.data;
-        } catch (error) {
-          console.error("Error fetching user info:", error);
-          localStorage.removeItem("jwt");
-          delete axios.defaults.headers.common["Authorization"];
-          return null;
-        }
-      }
-      return null;
-    },
     children: [
       {
         path: "/",
@@ -54,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/newproduct",
         element: <ProductNew />,
+      },
+      {
+        path: "/cart",
+        element: <ShoppingCart />,
       },
     ],
   },
