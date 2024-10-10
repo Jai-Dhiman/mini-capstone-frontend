@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "./useUser";
-import axios from "axios";
+import axios from "./axiosConfig";
 
 export function ShoppingCart() {
   const [cartedProducts, setCartedProducts] = useState([]);
@@ -26,6 +26,11 @@ export function ShoppingCart() {
   };
 
   const handleUpdateQuantity = (id, newQuantity) => {
+    if (newQuantity < 1) {
+      handleRemoveItem(id);
+      return;
+    }
+
     axios
       .patch(`http://localhost:3000/carted_products/${id}`, { quantity: newQuantity })
       .then(() => {
@@ -70,21 +75,22 @@ export function ShoppingCart() {
                 <h3>{item.product.name}</h3>
                 <p>Price: ${item.product.price}</p>
                 <div className="quantity-control">
-                  <button
-                    onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}
-                    disabled={item.quantity === 1}
-                  >
-                    -
-                  </button>
+                  <button onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)}>-</button>
                   <span>{item.quantity}</span>
                   <button onClick={() => handleUpdateQuantity(item.id, item.quantity + 1)}>+</button>
                 </div>
+                <p>Subtotal: ${(item.product.price * item.quantity).toFixed(2)}</p>
                 <button onClick={() => handleRemoveItem(item.id)}>Remove</button>
               </div>
             </li>
           ))}
         </ul>
       )}
+      <div className="cart-total">
+        <h3>
+          Total: ${cartedProducts.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2)}
+        </h3>
+      </div>
     </div>
   );
 }

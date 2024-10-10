@@ -7,7 +7,7 @@ import { Footer } from "./Footer";
 import { UserProvider } from "./UserContext";
 import { ProductNew } from "./ProductNew";
 import { ShoppingCart } from "./ShoppingCart";
-import axios from "axios";
+import axios from "./axiosConfig";
 
 const router = createBrowserRouter([
   {
