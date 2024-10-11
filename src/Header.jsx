@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "./useUser";
 import { useState, useEffect } from "react";
 import axios from "./axiosConfig";
+import { LogoutLink } from "./LogoutLink";
 
 export function Header() {
   const { user } = useUser();
@@ -28,11 +29,11 @@ export function Header() {
     <header>
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/cart">Cart ({cartItemCount})</Link>
+
         {user ? (
           <>
-            <span>Welcome, {user.name}!</span>
-            <Link to="/logout">Logout</Link>
+            <span>Hello, {user.name}</span>
+            <LogoutLink />
           </>
         ) : (
           <>
@@ -40,6 +41,7 @@ export function Header() {
             <Link to="/login">Login</Link>
           </>
         )}
+        <Link to="/cart">Cart ({cartItemCount})</Link>
         <Link to="/newproduct">New Product</Link>
       </nav>
     </header>

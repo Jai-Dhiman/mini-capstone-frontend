@@ -16,7 +16,7 @@ export function ProductNew() {
       .then((response) => {
         console.log("Product created:", response.data);
         event.target.reset();
-        navigate("/"); // Redirect to the product index page
+        navigate("/");
       })
       .catch((error) => {
         console.log(error.response);

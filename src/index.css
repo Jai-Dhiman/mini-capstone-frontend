@@ -2,7 +2,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* App.css */
 * {
   box-sizing: border-box;
 }
@@ -56,8 +55,15 @@ main {
   margin: 5px 0;
 }
 
-.product-card button {
+.product-card .button-container {
+  display: flex;
+  justify-content: space-between;
   margin-top: auto;
+}
+
+.product-card button {
+  flex: 1;
+  margin: 5px;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -70,6 +76,7 @@ main {
 .product-card button:hover {
   background-color: #0056b3;
 }
+
 
 .new-product {
   background-color: #fff;
@@ -280,4 +287,36 @@ main {
   color: red;
   list-style-type: none;
   padding: 0;
+}
+
+.quantity-modal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 500px; /* Adjust this value as needed */
+}
+
+.quantity-modal h2 {
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.quantity-modal input {
+  margin: 0 30px;
+  padding: 7px;
+  width: 50px;
+  text-align: center;
+}
+
+.quantity-modal button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  flex: 0 0 auto;
 }

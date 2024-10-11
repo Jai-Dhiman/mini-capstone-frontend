@@ -3,7 +3,6 @@ import { useLoaderData } from "react-router-dom";
 import { Modal } from "./Modal";
 import { ProductShow } from "./ProductShow";
 import { useUser } from "./useUser";
-import { LogoutLink } from "./LogoutLink";
 import axios from "./axiosConfig";
 import "./Index.css";
 
@@ -12,6 +11,9 @@ export function ProductsIndexPage() {
   const { user } = useUser();
   const [isProductShowVisible, setIsProductShowVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [isQuantityModalVisible, setIsQuantityModalVisible] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   const handleShow = (product) => {
     setIsProductShowVisible(true);
@@ -28,14 +30,20 @@ export function ProductsIndexPage() {
       alert("Please log in to add items to cart.");
       return;
     }
+    setSelectedProductId(productId);
+    setIsQuantityModalVisible(true);
+  };
 
+  const handleQuantitySubmit = () => {
     axios
       .post("http://localhost:3000/carted_products", {
-        product_id: productId,
-        quantity: 1,
+        product_id: selectedProductId,
+        quantity: quantity,
       })
       .then((response) => {
         console.log("Product added to cart:", response.data);
+        setIsQuantityModalVisible(false);
+        setQuantity(1);
         alert("Product added to cart!");
       })
       .catch((error) => {
@@ -46,12 +54,6 @@ export function ProductsIndexPage() {
 
   return (
     <main>
-      {user && (
-        <div className="user-info">
-          <p>{user.name} is logged in</p>
-          <LogoutLink />
-        </div>
-      )}
       <h1>All Products</h1>
       <div className="product-grid">
         {products.map((product) => (
@@ -67,6 +69,13 @@ export function ProductsIndexPage() {
       </div>
       <Modal show={isProductShowVisible} onClose={handleClose}>
         {currentProduct && <ProductShow product={currentProduct} />}
+      </Modal>
+      <Modal show={isQuantityModalVisible} onClose={() => setIsQuantityModalVisible(false)}>
+        <div className="quantity-modal">
+          <h2>Select Quantity</h2>
+          <input type="number" min="1" value={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
+          <button onClick={handleQuantitySubmit}>Add to Cart</button>
+        </div>
       </Modal>
     </main>
   );
