@@ -7,6 +7,8 @@ import { Footer } from "./Footer";
 import { UserProvider } from "./UserContext";
 import { ProductNew } from "./ProductNew";
 import { ShoppingCart } from "./ShoppingCart";
+import { OrderCreate } from "./OrderCreate";
+import { OrderShow } from "./OrderShow";
 import axios from "./axiosConfig";
 
 const router = createBrowserRouter([
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <ShoppingCart />,
+      },
+      {
+        path: "/orders/new",
+        element: <OrderCreate />,
+      },
+      {
+        path: "/orders/:id",
+        element: <OrderShow />,
       },
     ],
   },

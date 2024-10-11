@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useUser } from "./useUser";
+import { Link } from "react-router-dom";
 import axios from "./axiosConfig";
 
 export function ShoppingCart() {
@@ -90,6 +91,9 @@ export function ShoppingCart() {
         <h3>
           Total: ${cartedProducts.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2)}
         </h3>
+        <Link to="/orders/new">
+          <button>Create Order</button>
+        </Link>
       </div>
     </div>
   );
