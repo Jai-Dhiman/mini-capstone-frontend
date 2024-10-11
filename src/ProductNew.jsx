@@ -6,22 +6,41 @@ export function ProductNew() {
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setErrors([]);
     const params = new FormData(event.target);
 
-    axios
-      .post("http://localhost:3000/products.json", params)
-      .then((response) => {
-        console.log("Product created:", response.data);
-        event.target.reset();
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-        setErrors(["Error creating product. Please try again."]);
-      });
+    try {
+      const response = await axios.post("http://localhost:3000/products.json", params);
+      console.log("Product created:", response.data);
+      event.target.reset();
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating product:", error);
+
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+
+        if (error.response.data && error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        } else {
+          setErrors(["An unexpected error occurred. Please try again."]);
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("No response received:", error.request);
+        setErrors(["No response received from the server. Please try again."]);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Error setting up the request:", error.message);
+        setErrors(["An error occurred while sending the request. Please try again."]);
+      }
+    }
   };
 
   return (

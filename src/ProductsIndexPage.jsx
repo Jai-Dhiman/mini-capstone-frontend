@@ -7,7 +7,7 @@ import axios from "./axiosConfig";
 import "./Index.css";
 
 export function ProductsIndexPage() {
-  const products = useLoaderData();
+  const [products, setProducts] = useState(useLoaderData());
   const { user } = useUser();
   const [isProductShowVisible, setIsProductShowVisible] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
@@ -23,6 +23,27 @@ export function ProductsIndexPage() {
   const handleClose = () => {
     setIsProductShowVisible(false);
     setCurrentProduct(null);
+  };
+
+  const handleUpdate = (id, params) => {
+    axios
+      .patch(`http://localhost:3000/products/${id}.json`, params)
+      .then((response) => {
+        setProducts(products.map((product) => (product.id === response.data.id ? response.data : product)));
+        handleClose();
+        console.log("Product updated successfully");
+      })
+      .catch((error) => {
+        console.error("Error updating product:", error);
+        console.log("Failed to update product");
+      });
+  };
+
+  const handleDestroy = (id) => {
+    axios.delete(`http://localhost:3000/products/${id}.json`).then(() => {
+      setProducts(products.filter((product) => product.id !== id));
+      handleClose();
+    });
   };
 
   const handleAddToCart = (productId) => {
@@ -68,7 +89,7 @@ export function ProductsIndexPage() {
         ))}
       </div>
       <Modal show={isProductShowVisible} onClose={handleClose}>
-        {currentProduct && <ProductShow product={currentProduct} />}
+        {currentProduct && <ProductShow product={currentProduct} onUpdate={handleUpdate} onDestroy={handleDestroy} />}
       </Modal>
       <Modal show={isQuantityModalVisible} onClose={() => setIsQuantityModalVisible(false)}>
         <div className="quantity-modal">
