@@ -3,6 +3,8 @@ import { useState } from "react";
 
 export function SignupPage() {
   const [errors, setErrors] = useState([]);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,14 +33,17 @@ export function SignupPage() {
       </ul>
       <form onSubmit={handleSubmit}>
         <div>
-          Name: <input name="name" type="text" />
+          Name: <input name="name" type="text" value={name} onChange={(event) => setName(event.target.value)} />
         </div>
+        <small> {20 - name.length} characters remaining</small>
         <div>
           Email: <input name="email" type="email" />
         </div>
         <div>
-          Password: <input name="password" type="password" />
+          Password:{" "}
+          <input name="password" type="text" value={password} onChange={(event) => setPassword(event.target.value)} />
         </div>
+        <small>Must be at least 6 characters long, length: {password.length} characters</small>
         <div>
           Password confirmation: <input name="password_confirmation" type="password" />
         </div>

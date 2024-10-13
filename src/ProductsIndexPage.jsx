@@ -14,6 +14,7 @@ export function ProductsIndexPage() {
   const [isQuantityModalVisible, setIsQuantityModalVisible] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [searchFilter, setSearchFilter] = useState("");
 
   const handleShow = (product) => {
     setIsProductShowVisible(true);
@@ -76,17 +77,23 @@ export function ProductsIndexPage() {
   return (
     <main>
       <h1>All Products</h1>
+      <div>
+        Search filter:
+        <input type="text" value={searchFilter} onChange={(event) => setSearchFilter(event.target.value)} />
+      </div>
       <div className="product-grid">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <h2>{product.name}</h2>
-            <img src={product.image_url} alt={product.name} />
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
-            <button onClick={() => handleShow(product)}>More info</button>
-            <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
-          </div>
-        ))}
+        {products
+          .filter((product) => product.name.toLowerCase().includes(searchFilter.toLowerCase()))
+          .map((product) => (
+            <div key={product.id} className="product-card">
+              <h2>{product.name}</h2>
+              <img src={product.image_url} alt={product.name} />
+              <p>{product.description}</p>
+              <p>Price: ${product.price}</p>
+              <button onClick={() => handleShow(product)}>More info</button>
+              <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+            </div>
+          ))}
       </div>
       <Modal show={isProductShowVisible} onClose={handleClose}>
         {currentProduct && <ProductShow product={currentProduct} onUpdate={handleUpdate} onDestroy={handleDestroy} />}

@@ -25,24 +25,25 @@ export function Header() {
       });
   };
 
+  let authenticationLinks;
+  if (localStorage.jwt === undefined) {
+    // logged out
+    authenticationLinks = (
+      <>
+        <Link to="/login">Login</Link> <Link to="signup">Signup</Link>
+      </>
+    );
+  } else {
+    // logged in
+    authenticationLinks = <LogoutLink />;
+  }
   return (
     <header>
       <nav>
         <Link to="/">Home</Link>
-
-        {user ? (
-          <>
-            <span>Hello, {user.name}</span>
-            <LogoutLink />
-          </>
-        ) : (
-          <>
-            <Link to="/signup">Signup</Link>
-            <Link to="/login">Login</Link>
-          </>
-        )}
         <Link to="/cart">Cart ({cartItemCount})</Link>
         <Link to="/newproduct">New Product</Link>
+        {authenticationLinks}
       </nav>
     </header>
   );
