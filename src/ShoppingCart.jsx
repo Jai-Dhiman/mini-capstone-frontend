@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useUser } from "./useUser";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "./axiosConfig";
 
 export function ShoppingCart() {
   const [cartedProducts, setCartedProducts] = useState([]);
   const [errors, setErrors] = useState([]);
   const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -55,6 +56,19 @@ export function ShoppingCart() {
       });
   };
 
+  const handleCreateOrder = () => {
+    axios
+      .post("http://localhost:3000/orders")
+      .then((response) => {
+        console.log("Order created:", response.data);
+        navigate(`/orders/${response.data.id}`);
+      })
+      .catch((error) => {
+        console.error("Error creating order:", error);
+        setErrors(["Error creating order. Please try again."]);
+      });
+  };
+
   return (
     <div className="shopping-cart">
       <h1>Shopping Cart</h1>
@@ -91,9 +105,7 @@ export function ShoppingCart() {
         <h3>
           Total: ${cartedProducts.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2)}
         </h3>
-        <Link to="/orders/new">
-          <button>Create Order</button>
-        </Link>
+        <button onClick={handleCreateOrder}>Create Order</button>
       </div>
     </div>
   );
